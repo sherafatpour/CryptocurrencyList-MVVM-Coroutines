@@ -1,5 +1,6 @@
-package net.sherafatpour.cryptocurrencylist.data.models
+package net.sherafatpour.cryptocurrencylist.data
 
+import net.sherafatpour.cryptocurrencylist.data.models.CryptoModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
