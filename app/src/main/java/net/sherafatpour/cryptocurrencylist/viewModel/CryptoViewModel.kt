@@ -14,39 +14,38 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CryptoViewModel @Inject constructor(
-  private val  repository: Repository,
-  private val dispatcherProvider: DispatcherProvider
-):ViewModel() {
+    private val repository: Repository,
+    private val dispatcherProvider: DispatcherProvider
+) : ViewModel() {
 
-    sealed class CryptoStatus{
-        class Success(val result: CryptoModel):CryptoStatus()
-        class Failure(val error: String):CryptoStatus()
+    sealed class CryptoStatus {
+        class Success(val result: CryptoModel) : CryptoStatus()
+        class Failure(val error: String) : CryptoStatus()
         object Loading : CryptoStatus()
         object Empty : CryptoStatus()
     }
 
     private val _crypto = MutableStateFlow<CryptoStatus>(CryptoStatus.Empty)
-    val cryptoStatus : StateFlow<CryptoStatus> = _crypto
+    val cryptoStatus: StateFlow<CryptoStatus> = _crypto
 
-    fun getCryptoCurrency(vs_currency: String,
-                                order: String,
-                                per_page: String,
-                                page: String,
-                                sparkline: Boolean){
+    fun getCryptoCurrency(
+        vs_currency: String,
+        order: String,
+        per_page: String,
+        page: String,
+        sparkline: Boolean
+    ) {
 
         viewModelScope.launch(dispatcherProvider.io) {
             _crypto.value = CryptoStatus.Loading
-            when(val response = repository.getCryptoList(vs_currency, order, per_page, page, sparkline)){
+            when (val response =
+                repository.getCryptoList(vs_currency, order, per_page, page, sparkline)) {
                 is Resource.Error -> _crypto.value = CryptoStatus.Failure(response.message!!)
-                is Resource.Success->{
+                is Resource.Success -> {
                     _crypto.value = CryptoStatus.Success(response.data!!)
-
-
                 }
 
             }
-
-
 
         }
 
