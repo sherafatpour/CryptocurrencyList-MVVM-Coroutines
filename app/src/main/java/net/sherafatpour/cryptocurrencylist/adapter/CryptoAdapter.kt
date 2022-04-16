@@ -6,7 +6,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import net.sherafatpour.cryptocurrencylist.data.models.CryptoModel
+import net.sherafatpour.cryptocurrencylist.data.models.CryptoModelItem
 import net.sherafatpour.cryptocurrencylist.databinding.CryptoItemBinding
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 
 class CryptoAdapter(private val cryptoList: CryptoModel)
@@ -23,9 +26,18 @@ class CryptoAdapter(private val cryptoList: CryptoModel)
     override fun onBindViewHolder(holder: CryptoViewHolder, position: Int) {
         with(holder){
             with(cryptoList[position]) {
-                binding.cryptoName.text = symbol.uppercase() +" "+name
-                binding.cryptoPrice.text = "\$"+current_price
-                binding.cryptoRank.text = "${position + 1}"
+
+
+                val dec = DecimalFormat("#,###.00")
+
+
+                val percentFormat: NumberFormat = NumberFormat.getPercentInstance()
+                 percentFormat.minimumFractionDigits = 5
+
+                binding.cryptoName.text = StringBuilder(symbol.uppercase() +" "+name)
+                binding.cryptoPrice.text = StringBuilder("\$"+dec.format(current_price))
+                binding.cryptoRank.text = StringBuilder("${position + 1}")
+                binding.cryptoCap.text = StringBuilder("\$"+priceFormatter(market_cap))
                Glide.with(holder.itemView.context)
                     .load(image)
                     .into(binding.cryptoPhoto)
@@ -36,6 +48,25 @@ class CryptoAdapter(private val cryptoList: CryptoModel)
                 }
             }
         }
+    }
+
+    private fun priceFormatter(market_cap:Long): String {
+        var numberString = ""
+        numberString = when {
+            Math.abs(market_cap / 1000000000) > 1 -> {
+                (market_cap / 1000000000).toString() + " B  "
+            }
+            Math.abs(market_cap / 1000000) > 1 -> {
+                (market_cap / 1000000).toString() + " M  "
+            }
+            Math.abs(market_cap / 1000) > 1 -> {
+                (market_cap / 1000).toString() + " K  "
+            }
+            else -> {
+                market_cap.toString()
+            }
+        }
+        return numberString
     }
 
     inner class CryptoViewHolder(val binding: CryptoItemBinding)

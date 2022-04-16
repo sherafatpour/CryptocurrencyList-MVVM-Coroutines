@@ -59,6 +59,7 @@
                 android:id="@+id/cryptoCap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:layout_marginStart="16dp"
                 android:text="$25.6B"
@@ -71,7 +72,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$761B"
-                android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintLeft_toRightOf="@id/cryptoCap"
                 app:layout_constraintTop_toBottomOf="@id/cryptoName"
@@ -80,18 +80,19 @@
                 />
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/cryptoPrice"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_marginBottom="30dp"
+                android:gravity="start"
 
-            android:layout_marginEnd="16dp"
                 android:text="$4000"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/cryptoPhoto" />
-
+<!--
             <TextView
                 android:gravity="center"
                 android:textColor="@color/green_700"
@@ -105,7 +106,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/cryptoPrice"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/cryptoPrice"
-                app:layout_constraintTop_toBottomOf="@+id/cryptoPrice" />
+                app:layout_constraintTop_toBottomOf="@+id/cryptoPrice" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
