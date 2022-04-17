@@ -18,6 +18,7 @@ class Repository @Inject constructor(private val api: CryptoApi):MainRepository 
             if (response.isSuccessful && result != null){
 
                 Resource.Success(result)
+
             }else{
                 Resource.Error(response.message())
             }

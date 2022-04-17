@@ -41,9 +41,7 @@ class CryptoViewModel @Inject constructor(
             when (val response =
                 repository.getCryptoList(vs_currency, order, per_page, page, sparkline)) {
                 is Resource.Error -> _crypto.value = CryptoStatus.Failure(response.message!!)
-                is Resource.Success -> {
-                    _crypto.value = CryptoStatus.Success(response.data!!)
-                }
+                is Resource.Success -> _crypto.value = CryptoStatus.Success(response.data!!)
 
             }
 
